@@ -1,0 +1,19 @@
+{
+  "name": "ausbilder",
+  "version": "1.0.0",
+  "description": "Ausbilder is a simple smart contract application in Ethereum technology. Evaluates whether the instructor is fit to instruct",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcionitao/ausbilder.git"
+  },
+  "author": "Marcio Nitao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcionitao/ausbilder/issues"
+  },
+  "homepage": "https://github.com/marcionitao/ausbilder#readme"
+}
