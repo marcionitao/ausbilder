@@ -6,4 +6,5 @@ Ausbilder is a simple smart contract application in Ethereum technology. Evaluat
 - Remix ETH
 - Solidity IDE
 - Web 3 js
+- Ethereumjs-testrpc
 - Node js
