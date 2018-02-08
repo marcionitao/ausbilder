@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body> 
     <div class="container">
 
         <h1>AusBilder</h1>
@@ -33,8 +33,43 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
+    <!--  let's use it to connect to our testrpc client: -->
     <script>
-        // Our future code here..
+        
+        if(typeof web3 !== 'undefined'){
+            web3 = new Web3(web3.currentProvider);
+        }else{
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+        // we have to specify a default ethereum account to use through the web3.eth.defaultAccount method:
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        
+        // we need to use the web3.eth.contract() method to initiatlize (or create) the contract on an address. It accepts one parameter, which is referred to as the ABI (Application Binary Interface). 
+        var AusbilderContract = web3.eth.contract([ { "constant": true, "inputs": [], "name": "getInstructor", "outputs": [ { "name":
+        "", "type": "string" }, { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function"
+        }, { "constant": false, "inputs": [ { "name": "_fName", "type": "string" }, { "name": "_age", "type": "uint256" } ], "name":
+        "setInstructor", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" } ]);
+        
+        //  is to define the actual contract address. ABI 
+        var Ausbilder = AusbilderContract.at('0x8801a2d536d87c5a0f63b0c4148d10953687234c');
+        console.log(Ausbilder);
+
+        // We're simply calling .getInstructor and passing the error and result through a callback function. If the error isn't present, we set the html of an h2 element with the id of #instructor to the returned result array (0 = the name, 1 = the age).
+        Ausbilder.getInstructor(function(error, result){
+            if(!error)
+                {
+                    $("#instructor").html(result[0]+' ('+result[1]+' years old)');
+                    console.log(result);
+                }
+            else
+                console.error(error);
+        });
+
+        // Next, on click, we call .setInstructor to the name and age values from the input fields in the form.
+        $("#button").click(function() {
+            Ausbilder.setInstructor($("#name").val(), $("#age").val());
+        });
     </script>
 
 </body>
