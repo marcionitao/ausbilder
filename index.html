@@ -47,11 +47,11 @@
 
         // we need to use the web3.eth.contract() method to initiatlize (or create) the contract on an address. It accepts one parameter, which is referred to as the ABI (Application Binary Interface). 
         var AusbilderContract = web3.eth.contract([{ "constant": true, "inputs": [], "name": "getInstructor", "outputs": [{ "name":
-        "", "type": "string" }, { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function"
+        "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function"
         }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "name", "type": "string" }, { "indexed": false, "name": "age",
-        "type": "uint256" } ], "name": "Instructor", "type": "event" }, { "constant": false, "inputs": [{ "name": "_fName", "type":
-        "string" }, { "name": "_age", "type": "uint256" } ], "name": "setInstructor", "outputs": [], "payable": false, "stateMutability":
-        "nonpayable", "type": "function" } ]);
+        "type": "uint256" }], "name": "Instructor", "type": "event" }, { "constant": false, "inputs": [{ "name": "_fName", "type":
+        "string" }, { "name": "_age", "type": "uint256" }], "name": "setInstructor", "outputs": [], "payable": false, "stateMutability":
+        "nonpayable", "type": "function" }]);
 
         //  is to define the actual contract address. ABI 
         var Ausbilder = AusbilderContract.at('0xda293dbb195aefdc1b20ef702755cde9b133028f');
@@ -73,8 +73,14 @@
 
         // Next, on click, we call .setInstructor to the name and age values from the input fields in the form.
         $("#button").click(function () {
-            Ausbilder.setInstructor($("#name").val(), $("#age").val());
-            $("#loader").show();
+            // we're checking if an error err was returned, then to hide the loader graphic and console log 'oh no'.
+            Coursetro.setInstructor($("#name").val(), $("#age").val(), (err, res) => {
+                if (err) {
+                    $("#loader").hide();
+                    console.log('oh no');
+                }
+            });
+            //  $("#loader").show();
         });
     </script>
 
